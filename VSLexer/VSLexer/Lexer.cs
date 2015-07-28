@@ -205,7 +205,7 @@ namespace VoxScript.Lexer
             Char leadingChar = currentLine[currentPlace];
             if (Char.IsLetter(leadingChar))
             {
-                
+                HashSet<char> allowableCharactersAfterIdentifier = new HashSet<char>() { ' ', ':', '.' };
                 Regex word = new Regex(@"\w+");
                 string accumulator = "";
                 string remaining = currentLine.Substring(currentPlace);
@@ -215,12 +215,51 @@ namespace VoxScript.Lexer
                 //if the word is a keyword, or it's the first part of a key phrase, mark this as an identifier.
                 isIdentifier = !(phraseToTokenMap.ContainsKey(match.Value)
                     || reservedWordToPhraseMap.ContainsKey(match.Value));
-
-                //We need to parse either an identifier or a reserved word.
-                do
+                if (isIdentifier)
                 {
-
-                } while (currentPlace < currentLine.Length && Char.IsLetter(leadingChar) && !phraseToTokenMap.ContainsKey(accumulator));
+                    //It's a single identifier.
+                    if (phraseToTokenMap.ContainsKey(match.Value.ToLower()))
+                    {
+                        Next = phraseToTokenMap[match.Value.ToLower()];
+                        if (match.Value.ToLower() == "true")
+                        {
+                            Next = Token.boolTok;
+                            Value = true;
+                        }
+                        if (match.Value.ToLower() == "false")
+                        {
+                            Next = Token.boolTok;
+                            Value = false;
+                        }
+                        currentPlace += match.Value.Length;
+                        if (!allowableCharactersAfterIdentifier.Contains(currentLine[currentPlace + 1]))
+                        {
+                            Next = Token.INVALID;
+                        }
+                    }
+                    else
+                    {
+                        string[] phrases = reservedWordToPhraseMap[match.Value.ToLower()].Split('|');
+                        bool matched = false;
+                        foreach (string phrase in phrases)
+                        {
+                            if (remaining.StartsWith(phrase))
+                            {
+                                Next = phraseToTokenMap[phrase];
+                                matched = true;
+                            }
+                        }
+                        //If we couldn't match the whole phrase, abort.
+                        if (!matched)
+                        {
+                            Next = Token.INVALID;
+                        }
+                    }
+                }
+                else
+                {
+                    accumulator += match.Value;
+                }
             }
             else if (Char.IsDigit(leadingChar) || leadingChar == '-')
             {
