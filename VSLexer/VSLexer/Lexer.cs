@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace VoxScript.Lexer
@@ -45,18 +46,20 @@ namespace VoxScript.Lexer
         moduloTok,
         negativeTok,
         //Boolean Operations
-        equalsTok,
+        isTok,
         notTok,
         greaterTok,
         lessTok,
         greaterThanOrEqualsTok,
         lessThanOrEqualsTok,
+        exclusiveOrTok,
         //String Operations
         appendTok,
         //Lists
         newListTok,
         pushTok,
         popTok,
+        ontoTok,
         shiftTok,
         unshiftTok,
         insertTok,
@@ -73,6 +76,9 @@ namespace VoxScript.Lexer
         colonTok,
         tabTok,
         eofTok,
+        periodTok,
+        //Temp values.
+        UNINITIALIZED,
         INVALID
     }
 
@@ -98,18 +104,71 @@ namespace VoxScript.Lexer
         private Object nextValue;
         private string nextIdentifier;
         private StringReader lineReader = new StringReader("");
+        private Dictionary<string, Token> reservedWords = new Dictionary<string, Token>() { 
+            {"if",Token.ifTok},
+            {"set",Token.setTok},
+            {"equal to",Token.assignTok},
+            {"then",Token.thenTok},
+            {"otherwise",Token.otherwiseTok},
+            {"loop",Token.loopTok},
+            {"while",Token.whileTok},
+            {"from",Token.fromTok},
+            {"to",Token.toTok},
+            {"by",Token.byTok},
+            {"over",Token.overTok},
+            {"into",Token.intoTok},
+            {"named",Token.namedTok},
+            {"call",Token.callTok},
+            {"next",Token.nextTok},
+            {"exit loop",Token.exitTok},
+            {"return",Token.returnTok},
+            {"plus", Token.plusTok},
+            {"minus", Token.minusTok},
+            {"times", Token.timesTok},
+            {"multiplied",Token.timesTok},
+            {"divided by",Token.divideTok},
+            {"modulo",Token.moduloTok},
+            {"mod by",Token.moduloTok},
+            {"negative",Token.negativeTok},
+            {"negate",Token.negativeTok},
+            {"true",Token.boolTok},
+            {"false",Token.boolTok},
+            {"is",Token.isTok},
+            {"not",Token.notTok},
+            {"greater than",Token.greaterTok},
+            {"less than",Token.lessTok},
+            {"greater than or equal to",Token.greaterThanOrEqualsTok},
+            {"less than or equal to",Token.lessThanOrEqualsTok},
+            {"exclusive or",Token.exclusiveOrTok},
+            {"append",Token.appendTok},
+            {"new function",Token.newFuncTok},
+            {"with",Token.withTok},
+            {"new list",Token.newListTok},
+            {"push",Token.pushTok},
+            {"shift",Token.shiftTok},
+            {"insert",Token.insertTok},
+            {"remove",Token.removeTok},
+            {"pop",Token.popTok},
+            {"unshift",Token.unshiftTok},
+            {"length",Token.lengthTok},
+            {"element from",Token.elementTok},
+            {"at",Token.atTok},
+            {"print",Token.printTok},
+            {"read line",Token.readLineTok},
+            {"type of",Token.typeOfTok},
+            {"onto",Token.ontoTok}
+        };
 
         public Lexer()
         {
-
         }
 
         public void LoadScript(string input)
         {
             lineReader = new StringReader(input);
             currentLine = lineReader.ReadLine();
-            Current = Token.INVALID;
-            Next = Token.INVALID;
+            Current = Token.UNINITIALIZED;
+            Next = Token.UNINITIALIZED;
             MoveNext();
         }
 
@@ -132,11 +191,42 @@ namespace VoxScript.Lexer
             Char leadingChar = currentLine[currentPlace];
             if (Char.IsLetter(leadingChar))
             {
+                Regex word = new Regex(@"\w+");
+
+
+                string accumulator = "";
+                string nextWord = "";
                 //We need to parse either an identifier or a reserved word.
+                do
+                {
+                    string remaining = currentLine.Substring(currentPlace);
+                    Match match = word.Match(remaining);
+
+                    accumulator += match.Value + " ";
+
+                } while (currentPlace < currentLine.Length && Char.IsLetter(leadingChar) && !reservedWords.ContainsKey(accumulator));
             }
             else if (Char.IsDigit(leadingChar) || leadingChar == '-')
             {
-                //If it's a number, parse a literal.
+                Regex number = new Regex(@"(-)?((\d*)\.\d+|(\d+)(\.\d+)?)");
+                string remaining = currentLine.Substring(currentPlace);
+                Match match = number.Match(remaining);
+                long possibleLong;
+                double possibleDouble;
+                if (long.TryParse(match.Value, out possibleLong))
+                {
+                    Next = Token.numberTok;
+                    nextValue = possibleLong;
+                }
+                else if (double.TryParse(match.Value, out possibleDouble))
+                {
+                    Next = Token.numberTok;
+                    nextValue = possibleDouble;
+                }
+                else
+                {
+                    Next = Token.INVALID;
+                }
             }
             else if (leadingChar == '"')
             {
@@ -165,6 +255,10 @@ namespace VoxScript.Lexer
             else if (leadingChar == ':')
             {
                 Next = Token.colonTok;
+            }
+            else if (leadingChar == '.')
+            {
+                Next = Token.periodTok;
             }
             else
             {
