@@ -104,7 +104,21 @@ namespace VoxScript.Lexer
         private Object nextValue;
         private string nextIdentifier;
         private StringReader lineReader = new StringReader("");
-        private Dictionary<string, Token> reservedWords = new Dictionary<string, Token>() { 
+
+        private Dictionary<string, string> reservedWordToPhraseMap = new Dictionary<string, string>() {
+            {"equal","equal to"},
+            {"exit","exit loop"},
+            {"divided","divided by"},
+            {"greater","greater than|greater than or equal to"},
+            {"less","less than|less than or equal to"},
+            {"element","element from"},
+            {"type", "type of"},
+            {"new","list|function"},
+            {"exclusive","exclusive or"},
+            {"read","read line"}
+        };
+
+        private Dictionary<string, Token> phraseToTokenMap = new Dictionary<string, Token>() { 
             {"if",Token.ifTok},
             {"set",Token.setTok},
             {"equal to",Token.assignTok},
@@ -191,20 +205,22 @@ namespace VoxScript.Lexer
             Char leadingChar = currentLine[currentPlace];
             if (Char.IsLetter(leadingChar))
             {
+                
                 Regex word = new Regex(@"\w+");
-
-
                 string accumulator = "";
-                string nextWord = "";
+                string remaining = currentLine.Substring(currentPlace);
+                Match match = word.Match(remaining);
+
+                bool isIdentifier;
+                //if the word is a keyword, or it's the first part of a key phrase, mark this as an identifier.
+                isIdentifier = !(phraseToTokenMap.ContainsKey(match.Value)
+                    || reservedWordToPhraseMap.ContainsKey(match.Value));
+
                 //We need to parse either an identifier or a reserved word.
                 do
                 {
-                    string remaining = currentLine.Substring(currentPlace);
-                    Match match = word.Match(remaining);
 
-                    accumulator += match.Value + " ";
-
-                } while (currentPlace < currentLine.Length && Char.IsLetter(leadingChar) && !reservedWords.ContainsKey(accumulator));
+                } while (currentPlace < currentLine.Length && Char.IsLetter(leadingChar) && !phraseToTokenMap.ContainsKey(accumulator));
             }
             else if (Char.IsDigit(leadingChar) || leadingChar == '-')
             {
