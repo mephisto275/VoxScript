@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace VoxScript.Lexer
+namespace VoxScript.Common
 {
     public enum Token
     {
@@ -28,7 +28,7 @@ namespace VoxScript.Lexer
         whileTok,
         fromTok,
         toTok,
-        byTok,
+        withStepTok,
         overTok,
         intoTok,
         namedTok,
@@ -47,8 +47,8 @@ namespace VoxScript.Lexer
         moduloTok,
         negativeTok,
         //Boolean Operations
-        isTok,
         notTok,
+        equalsTok,
         greaterTok,
         lessTok,
         greaterThanOrEqualsTok,
@@ -119,7 +119,8 @@ namespace VoxScript.Lexer
             {"new","^new +list|^new +function"},
             {"exclusive","^exclusive +or"},
             {"read","^read +line"},
-            {"mod","^mod +by"}
+            {"mod","^mod +by"},
+            {"with", "^with +step|^with"}
         };
 
         private Dictionary<string, Token> phraseToTokenMap = new Dictionary<string, Token>() { 
@@ -132,7 +133,7 @@ namespace VoxScript.Lexer
             {"while",Token.whileTok},
             {"from",Token.fromTok},
             {"to",Token.toTok},
-            {"by",Token.byTok},
+            {"^with +step",Token.withStepTok},
             {"over",Token.overTok},
             {"into",Token.intoTok},
             {"named",Token.namedTok},
@@ -151,8 +152,8 @@ namespace VoxScript.Lexer
             {"negate",Token.negativeTok},
             {"true",Token.boolTok},
             {"false",Token.boolTok},
-            {"is",Token.isTok},
             {"not",Token.notTok},
+            {"equals", Token.equalsTok},
             {"^greater +than",Token.greaterTok},
             {"^less +than",Token.lessTok},
             {"^greater +than +or +equal +to",Token.greaterThanOrEqualsTok},
@@ -162,7 +163,7 @@ namespace VoxScript.Lexer
             {"and",Token.andTok},
             {"append",Token.appendTok},
             {"^new +function",Token.newFuncTok},
-            {"with",Token.withTok},
+            {"^with",Token.withTok},
             {"^new +list",Token.newListTok},
             {"push",Token.pushTok},
             {"shift",Token.shiftTok},
@@ -412,9 +413,14 @@ namespace VoxScript.Lexer
                 currentPlace++;
             }
 
-            if (currentPlace >= currentLine.Length)
+            while (currentLine != null && currentPlace >= currentLine.Length)
             {
+                currentPlace = 0;
                 currentLine = lineReader.ReadLine();
+                if (currentLine != null)
+                {
+                    currentLine = currentLine.TrimEnd();
+                }
             }
 
             return Current;

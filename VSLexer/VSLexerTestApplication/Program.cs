@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VoxScript.Lexer;
+using VoxScript.Common;
 
 namespace VSLexerTestApplication
 {
@@ -23,7 +24,7 @@ namespace VSLexerTestApplication
             {Token.whileTok, "while"},
             {Token.fromTok, "from"},
             {Token.toTok, "to"},
-            {Token.byTok, "by"},
+            {Token.withStepTok, "with step"},
             {Token.overTok, "over"},
             {Token.intoTok, "into"},
             {Token.namedTok, "named"},
@@ -42,8 +43,8 @@ namespace VSLexerTestApplication
             {Token.moduloTok, "modulo"},
             {Token.negativeTok, "negative"},
             //Boolean Operations
-            {Token.isTok, "is" },
             {Token.notTok, "not"},
+            {Token.equalsTok, "equals"},
             {Token.greaterTok, "greater than"},
             {Token.lessTok, "less than"},
             {Token.greaterThanOrEqualsTok, "greater than or equal to"},
@@ -72,7 +73,7 @@ namespace VSLexerTestApplication
             {Token.readLineTok, "read line"},
             //Other control flow
             {Token.colonTok, ": [New Line]"},
-            {Token.tabTok, "Tab"},
+            {Token.tabTok, "\t"},
             {Token.eofTok, "EOF"},
             {Token.periodTok, ". [New Line]"},
             //Temp values.
@@ -82,24 +83,70 @@ namespace VSLexerTestApplication
 
         static void Main(string[] args)
         {
-            while (true)
+            //while (true)
+            //{
+            //    Console.WriteLine("Enter a vox script line.");
+            //    string input = Console.ReadLine();
+            //    Lexer lexer = new Lexer();
+            //    lexer.LoadScript(input);
+
+            //    while ((lexer.MoveNext() != Token.eofTok) && (lexer.Current != Token.INVALID))
+            //    {
+            //        Token current = lexer.Current;
+            //        Console.Write(" [");
+            //        if (current == Token.boolTok)
+            //        {
+            //            Console.Write((bool)lexer.Value);
+            //        }
+            //        else if (current == Token.stringTok)
+            //        {
+            //            Console.Write("\"{0}\"", (string)lexer.Value);
+            //        }
+            //        else if (current == Token.longTok)
+            //        {
+            //            Console.Write("{0}", (long)lexer.Value);
+            //        }
+            //        else if (current == Token.doubleTok)
+            //        {
+            //            Console.Write("{0}", (double)lexer.Value);
+            //        }
+            //        else if (current == Token.identifierTok)
+            //        {
+            //            Console.Write(lexer.Identifier);
+            //        }
+            //        else if (current == Token.periodTok || current == Token.colonTok)
+            //        {
+            //            Console.WriteLine(phraseToTokenMap[current] + "]");
+            //            continue;
+            //        }
+            //        else
+            //        {
+            //            Console.Write(phraseToTokenMap[current]);
+            //        }
+            //        Console.Write("]");
+            //    }
+            //    Console.WriteLine();
+            //    Console.WriteLine("finished");
+            //}
+            Console.WriteLine("Please enter a file path.");
+            string path = Console.ReadLine();
+            if (File.Exists(path))
             {
-                Console.WriteLine("Enter a vox script line.");
-                string input = Console.ReadLine();
+                string input = File.ReadAllText(path);
                 Lexer lexer = new Lexer();
                 lexer.LoadScript(input);
 
                 while ((lexer.MoveNext() != Token.eofTok) && (lexer.Current != Token.INVALID))
                 {
                     Token current = lexer.Current;
-                    Console.Write(" [");
+                    Console.Write(" ");
                     if (current == Token.boolTok)
                     {
                         Console.Write((bool)lexer.Value);
                     }
                     else if (current == Token.stringTok)
                     {
-                        Console.Write("\"{0}\"",(string)lexer.Value);
+                        Console.Write("\"{0}\"", (string)lexer.Value);
                     }
                     else if (current == Token.longTok)
                     {
@@ -115,18 +162,21 @@ namespace VSLexerTestApplication
                     }
                     else if (current == Token.periodTok || current == Token.colonTok)
                     {
-                        Console.WriteLine(phraseToTokenMap[current] + "]");
+                        Console.WriteLine("[{0}]", phraseToTokenMap[current]);
                         continue;
+                    }
+                    else if (current == Token.tabTok)
+                    {
+                        Console.Write("{0}", phraseToTokenMap[current]);
                     }
                     else
                     {
-                        Console.Write(phraseToTokenMap[current]);
+                        Console.Write("[{0}]", phraseToTokenMap[current]);
                     }
-                    Console.Write("]");
+                    Console.Write("");
                 }
-                Console.WriteLine();
-                Console.WriteLine("finished");
             }
+            Console.ReadLine();
         }
     }
 }
