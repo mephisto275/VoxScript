@@ -47,6 +47,9 @@
     <Compile Include="AST\Expressions\NumericExpression.cs" />
     <Compile Include="AST\Scope.cs" />
     <Compile Include="AST\Statements\AssignmentStatement.cs" />
+    <Compile Include="AST\Statements\BuiltInPrintStatement.cs" />
+    <Compile Include="AST\Statements\BuiltInTypeStatement.cs" />
+    <Compile Include="AST\Statements\BuiltInStatement.cs" />
     <Compile Include="AST\Statements\CallStatement.cs" />
     <Compile Include="AST\Statements\ConditionalStatement.cs" />
     <Compile Include="AST\Statements\InLoopExitStatement.cs" />
