@@ -40,12 +40,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AST\AST.cs" />
+    <Compile Include="AST\Block.cs" />
+    <Compile Include="AST\Expressions\ArgumentExpression.cs" />
+    <Compile Include="AST\Expressions\BooleanExpression.cs" />
     <Compile Include="AST\Expressions\Expression.cs" />
     <Compile Include="AST\Scope.cs" />
     <Compile Include="AST\Statements\AssignmentStatement.cs" />
     <Compile Include="AST\Statements\CallStatement.cs" />
     <Compile Include="AST\Statements\ConditionalStatement.cs" />
+    <Compile Include="AST\Statements\ListInsertStatement.cs" />
+    <Compile Include="AST\Statements\ListPushStatement.cs" />
+    <Compile Include="AST\Statements\ListRemoveStatement.cs" />
+    <Compile Include="AST\Statements\ListShiftStatement.cs" />
     <Compile Include="AST\Statements\ListStatement.cs" />
+    <Compile Include="AST\Statements\ListUpdateStatement.cs" />
     <Compile Include="AST\Statements\LoopStatement.cs" />
     <Compile Include="AST\Statements\ReturnStatement.cs" />
     <Compile Include="AST\Statements\Statement.cs" />
