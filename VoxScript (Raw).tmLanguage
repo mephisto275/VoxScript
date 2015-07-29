@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>vs</string>
+	</array>
+	<key>name</key>
+	<string>Vox Script</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>comment</key>
+			<string>line comment</string>
+			<key>match</key>
+			<string>#</string>
+			<key>name</key>
+			<string>comment.line.number-sign.source.vs</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>Tab stops like $1, $2...</string>
+			<key>match</key>
+			<string>\$\d+</string>
+			<key>name</key>
+			<string>keyword.source.vs</string>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.vs</string>
+	<key>uuid</key>
+	<string>a4fc24ab-ba7d-451d-bc63-66fd96bc57d6</string>
+</dict>
+</plist>

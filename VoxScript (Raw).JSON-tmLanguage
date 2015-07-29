@@ -1,0 +1,799 @@
+// [PackageDev] target_format: plist, ext: tmLanguage
+{ "name": "Vox Script",
+      "repository": {
+        "line_continuation": {
+            "captures": {
+                "1": {
+                    "name": "punctuation.separator.continuation.line.vs"
+                }, 
+                "2": {
+                    "name": "invalid.illegal.unexpected-text.vs"
+                }
+            }, 
+            "match": "(\\\\)(.*)$\\n?"
+        }, 
+        "entity_name_class": {
+            "patterns": [
+                {
+                    "include": "#illegal_names"
+                }, 
+                {
+                    "include": "#generic_names"
+                }
+            ]
+        }, 
+        "constant_placeholder": {
+            "name": "constant.other.placeholder.vs", 
+            "match": "(?i:%(\\([a-z_]+\\))?#?0?\\-?[ ]?\\+?([0-9]*|\\*)(\\.([0-9]*|\\*))?[hL]?[a-z%])"
+        }, 
+        "docstrings": {
+            "patterns": [
+                {
+                    "patterns": [
+                        {
+                            "include": "#string_quoted_double"
+                        }
+                    ], 
+                    "begin": "^\\s*(?=[uU]?[rR]?\"\"\")", 
+                    "end": "(?<=\"\"\")", 
+                    "name": "comment.block.vs"
+                }
+            ]
+        }, 
+        "illegal_names": {
+            "name": "invalid.illegal.name.vs", 
+            "match": "\\b(and|as|assert|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|not|or|pass|print|raise|return|try|while|with|yield)\\b"
+        }, 
+        "builtin_functions": {
+            "name": "support.function.builtin.vs", 
+            "match": "(?x)\\b(\n                __import__|all|abs|any|apply|callable|chr|cmp|coerce|compile|delattr|dir|\n                divmod|eval|execfile|filter|getattr|globals|hasattr|hash|hex|id|\n                input|intern|isinstance|issubclass|iter|len|locals|map|max|min|oct|\n                ord|pow|range|raw_input|reduce|reload|repr|round|setattr|sorted|\n                sum|unichr|vars|zip\n\t\t\t)\\b"
+        }, 
+        "regular_expressions": {
+            "comment": "Changed disabled to 1 to turn off syntax highlighting in \u201cr\u201d strings.", 
+            "disabled": 0, 
+            "patterns": [
+                {
+                    "include": "source.regexp.vs"
+                }
+            ]
+        }, 
+        "dotted_name": {
+            "patterns": [
+                {
+                    "patterns": [
+                        {
+                            "include": "#magic_function_names"
+                        }, 
+                        {
+                            "include": "#magic_variable_names"
+                        }, 
+                        {
+                            "include": "#illegal_names"
+                        }, 
+                        {
+                            "include": "#generic_names"
+                        }
+                    ], 
+                    "begin": "(\\.)(?=[A-Za-z_][A-Za-z0-9_]*)", 
+                    "end": "(?![A-Za-z0-9_])"
+                }, 
+                {
+                    "patterns": [
+                        {
+                            "include": "#builtin_functions"
+                        }, 
+                        {
+                            "include": "#builtin_types"
+                        }, 
+                        {
+                            "include": "#builtin_exceptions"
+                        }, 
+                        {
+                            "include": "#illegal_names"
+                        }, 
+                        {
+                            "include": "#magic_function_names"
+                        }, 
+                        {
+                            "include": "#magic_variable_names"
+                        }, 
+                        {
+                            "include": "#language_variables"
+                        }, 
+                        {
+                            "include": "#generic_names"
+                        }
+                    ], 
+                    "begin": "(?<!\\.)(?=[A-Za-z_][A-Za-z0-9_]*)", 
+                    "end": "(?![A-Za-z0-9_])"
+                }
+            ], 
+            "begin": "(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*)", 
+            "end": "(?![A-Za-z0-9_\\.])"
+        }, 
+        "magic_variable_names": {
+            "comment": "magic variables which a class/module may have.", 
+            "name": "support.variable.magic.vs", 
+            "match": "\\b__(all|bases|class|debug|dict|doc|file|members|metaclass|methods|name|slots|weakref)__\\b"
+        }, 
+        "generic_names": {
+            "match": "[A-Za-z_][A-Za-z0-9_]*"
+        }, 
+        "language_variables": {
+            "name": "variable.language.vs", 
+            "match": "\\b(self|cls)\\b"
+        }, 
+        "string_quoted_double": {
+            "patterns": [
+                {
+                    "comment": "single quoted unicode-raw string", 
+                    "begin": "([uU]r)(\"\"\")", 
+                    "end": "((?<=\"\"\")(\")\"\"|\"\"\")", 
+                    "name": "string.quoted.double.block.unicode-raw-regex.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.type.string.vs"
+                        }, 
+                        "2": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_unicode_char"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }, 
+                        {
+                            "include": "#regular_expressions"
+                        }
+                    ]
+                }, 
+                {
+                    "comment": "single quoted unicode-raw string without regular expression highlighting", 
+                    "begin": "([uU]R)(\"\"\")", 
+                    "end": "((?<=\"\"\")(\")\"\"|\"\"\")", 
+                    "name": "string.quoted.double.block.unicode-raw.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.type.string.vs"
+                        }, 
+                        "2": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_unicode_char"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }
+                    ]
+                }, 
+                {
+                    "comment": "double quoted raw string", 
+                    "begin": "(r)(\"\"\")", 
+                    "end": "((?<=\"\"\")(\")\"\"|\"\"\")", 
+                    "name": "string.quoted.double.block.raw-regex.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.type.string.vs"
+                        }, 
+                        "2": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }, 
+                        {
+                            "include": "#regular_expressions"
+                        }
+                    ]
+                }, 
+                {
+                    "comment": "double quoted raw string", 
+                    "begin": "(R)(\"\"\")", 
+                    "end": "((?<=\"\"\")(\")\"\"|\"\"\")", 
+                    "name": "string.quoted.double.block.raw.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.type.string.vs"
+                        }, 
+                        "2": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }
+                    ]
+                }, 
+                {
+                    "comment": "double quoted unicode string", 
+                    "begin": "([uU])(\"\"\")", 
+                    "end": "((?<=\"\"\")(\")\"\"|\"\"\")", 
+                    "name": "string.quoted.double.block.unicode.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.type.string.vs"
+                        }, 
+                        "2": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_unicode_char"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }
+                    ]
+                }, 
+                {
+                    "comment": "double-quoted raw string", 
+                    "begin": "([uU]r)(\")", 
+                    "end": "((?<=\")(\")|\")|(\\n)", 
+                    "name": "string.quoted.double.single-line.unicode-raw-regex.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "3": {
+                            "name": "invalid.illegal.unclosed-string.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.type.string.vs"
+                        }, 
+                        "2": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_unicode_char"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }, 
+                        {
+                            "include": "#regular_expressions"
+                        }
+                    ]
+                }, 
+                {
+                    "comment": "double-quoted raw string", 
+                    "begin": "([uU]R)(\")", 
+                    "end": "((?<=\")(\")|\")|(\\n)", 
+                    "name": "string.quoted.double.single-line.unicode-raw.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "3": {
+                            "name": "invalid.illegal.unclosed-string.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.type.string.vs"
+                        }, 
+                        "2": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_unicode_char"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }
+                    ]
+                }, 
+                {
+                    "comment": "double-quoted raw string", 
+                    "begin": "(r)(\")", 
+                    "end": "((?<=\")(\")|\")|(\\n)", 
+                    "name": "string.quoted.double.single-line.raw-regex.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "3": {
+                            "name": "invalid.illegal.unclosed-string.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.type.string.vs"
+                        }, 
+                        "2": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }, 
+                        {
+                            "include": "#regular_expressions"
+                        }
+                    ]
+                }, 
+                {
+                    "comment": "double-quoted raw string", 
+                    "begin": "(R)(\")", 
+                    "end": "((?<=\")(\")|\")|(\\n)", 
+                    "name": "string.quoted.double.single-line.raw.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "3": {
+                            "name": "invalid.illegal.unclosed-string.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.type.string.vs"
+                        }, 
+                        "2": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }
+                    ]
+                }, 
+                {
+                    "comment": "double quoted unicode string", 
+                    "begin": "([uU])(\")", 
+                    "end": "((?<=\")(\")|\")|(\\n)", 
+                    "name": "string.quoted.double.single-line.unicode.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "3": {
+                            "name": "invalid.illegal.unclosed-string.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.type.string.vs"
+                        }, 
+                        "2": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_unicode_char"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }
+                    ]
+                }, 
+                {
+                    "comment": "double quoted string", 
+                    "begin": "(\"\"\")(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))", 
+                    "end": "((?<=\"\"\")(\")\"\"|\"\"\")", 
+                    "name": "string.quoted.double.block.sql.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }, 
+                        {
+                            "include": "source.sql"
+                        }
+                    ]
+                }, 
+                {
+                    "comment": "double quoted string", 
+                    "begin": "(\")(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))", 
+                    "end": "((?<=\")(\")|\")|(\\n)", 
+                    "name": "string.quoted.double.single-line.sql.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "3": {
+                            "name": "invalid.illegal.unclosed-string.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }, 
+                        {
+                            "include": "source.sql"
+                        }
+                    ]
+                }, 
+                {
+                    "comment": "double quoted string", 
+                    "begin": "(\"\"\")", 
+                    "end": "((?<=\"\"\")(\")\"\"|\"\"\")", 
+                    "name": "string.quoted.double.block.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }
+                    ]
+                }, 
+                {
+                    "comment": "double quoted string", 
+                    "begin": "(\")", 
+                    "end": "((?<=\")(\")|\")|(\\n)", 
+                    "name": "string.quoted.double.single-line.vs", 
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.end.vs"
+                        }, 
+                        "3": {
+                            "name": "invalid.illegal.unclosed-string.vs"
+                        }, 
+                        "2": {
+                            "name": "meta.empty-string.double.vs"
+                        }
+                    }, 
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.begin.vs"
+                        }
+                    }, 
+                    "patterns": [
+                        {
+                            "include": "#constant_placeholder"
+                        }, 
+                        {
+                            "include": "#escaped_char"
+                        }
+                    ]
+                }
+            ]
+        }, 
+        "keyword_arguments": {
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.separator.parameters.vs"
+                }
+            }, 
+            "begin": "\\b([a-zA-Z_][a-zA-Z_0-9]*)\\s*(=)(?!=)", 
+            "patterns": [
+                {
+                    "include": "$self"
+                }
+            ], 
+            "end": "\\s*(?:(,)|(?=$\\n?|[\\)\\:]))", 
+            "beginCaptures": {
+                "1": {
+                    "name": "variable.parameter.function.vs"
+                }, 
+                "2": {
+                    "name": "keyword.operator.assignment.vs"
+                }
+            }
+        }, 
+        "magic_function_names": {
+            "comment": "these methods have magic interpretation by vs and are generally called indirectly through syntactic constructs", 
+            "name": "support.function.magic.vs", 
+            "match": "(?x)\\b(__(?:\n\t\t\t\t\t\tabs|add|and|call|cmp|coerce|complex|contains|del|delattr|\n\t\t\t\t\t\tdelete|delitem|delslice|div|divmod|enter|eq|exit|float|\n\t\t\t\t\t\tfloordiv|ge|get|getattr|getattribute|getitem|getslice|gt|\n\t\t\t\t\t\thash|hex|iadd|iand|idiv|ifloordiv|ilshift|imod|imul|init|\n\t\t\t\t\t\tint|invert|ior|ipow|irshift|isub|iter|itruediv|ixor|le|len|\n\t\t\t\t\t\tlong|lshift|lt|mod|mul|ne|neg|new|nonzero|oct|or|pos|pow|\n\t\t\t\t\t\tradd|rand|rdiv|rdivmod|repr|rfloordiv|rlshift|rmod|rmul|ror|\n\t\t\t\t\t\trpow|rrshift|rshift|rsub|rtruediv|rxor|set|setattr|setitem|\n\t\t\t\t\t\tsetslice|str|sub|truediv|unicode|xor\n\t\t\t\t\t)__)\\b"
+        }, 
+        "builtin_types": {
+            "name": "support.type.vs", 
+            "match": "(?x)\\b(\n\t\t\t\tbasestring|bool|buffer|classmethod|complex|dict|enumerate|file|\n\t\t\t\tfloat|frozenset|int|list|long|object|open|property|reversed|set|\n\t\t\t\tslice|staticmethod|str|super|tuple|type|unicode|xrange\n\t\t\t)\\b"
+        }, 
+        "escaped_char": {
+            "captures": {
+                "11": {
+                    "name": "constant.character.escape.return.vs"
+                }, 
+                "10": {
+                    "name": "constant.character.escape.linefeed.vs"
+                }, 
+                "13": {
+                    "name": "constant.character.escape.vertical-tab.vs"
+                }, 
+                "12": {
+                    "name": "constant.character.escape.tab.vs"
+                }, 
+                "1": {
+                    "name": "constant.character.escape.hex.vs"
+                }, 
+                "3": {
+                    "name": "constant.character.escape.newline.vs"
+                }, 
+                "2": {
+                    "name": "constant.character.escape.octal.vs"
+                }, 
+                "5": {
+                    "name": "constant.character.escape.double-quote.vs"
+                }, 
+                "4": {
+                    "name": "constant.character.escape.backlash.vs"
+                }, 
+                "7": {
+                    "name": "constant.character.escape.bell.vs"
+                }, 
+                "6": {
+                    "name": "constant.character.escape.single-quote.vs"
+                }, 
+                "9": {
+                    "name": "constant.character.escape.formfeed.vs"
+                }, 
+                "8": {
+                    "name": "constant.character.escape.backspace.vs"
+                }
+            }, 
+            "match": "(\\\\x[0-9A-F]{2})|(\\\\[0-7]{3})|(\\\\\\n)|(\\\\\\\\)|(\\\\\\\")|(\\\\')|(\\\\a)|(\\\\b)|(\\\\f)|(\\\\n)|(\\\\r)|(\\\\t)|(\\\\v)"
+        }, 
+        "builtin_exceptions": {
+            "name": "support.type.exception.vs", 
+            "match": "(?x)\\b(\n                (\n                    Arithmetic|Assertion|Attribute|Buffer|EOF|Environment|FloatingPoint|IO|\n                    Import|Indentation|Index|Key|Lookup|Memory|Name|NotImplemented|OS|Overflow|\n                    Reference|Runtime|Standard|Syntax|System|Tab|Type|UnboundLocal|\n                    Unicode(Encode|Decode|Translate)?|\n                    Value|VMS|Windows|ZeroDivision\n                )Error|\n                ((Pending)?Deprecation|Runtime|Syntax|User|Future|Import|Unicode|Bytes)?Warning|\n                (Base)?Exception|\n                SystemExit|StopIteration|NotImplemented|KeyboardInterrupt|GeneratorExit\n\t\t\t)\\b"
+        }, 
+        "entity_name_function": {
+            "patterns": [
+                {
+                    "include": "#magic_function_names"
+                }, 
+                {
+                    "include": "#illegal_names"
+                }, 
+                {
+                    "include": "#generic_names"
+                }
+            ]
+        }, 
+        "escaped_unicode_char": {
+            "captures": {
+                "1": {
+                    "name": "constant.character.escape.unicode.16-bit-hex.vs"
+                }, 
+                "3": {
+                    "name": "constant.character.escape.unicode.name.vs"
+                }, 
+                "2": {
+                    "name": "constant.character.escape.unicode.32-bit-hex.vs"
+                }
+            }, 
+            "match": "(\\\\U[0-9A-Fa-f]{8})|(\\\\u[0-9A-Fa-f]{4})|(\\\\N\\{[a-zA-Z ]+\\})"
+        }, 
+        "function_name": {
+            "patterns": [
+                {
+                    "include": "#magic_function_names"
+                }, 
+                {
+                    "include": "#magic_variable_names"
+                }, 
+                {
+                    "include": "#builtin_exceptions"
+                }, 
+                {
+                    "include": "#builtin_functions"
+                }, 
+                {
+                    "include": "#builtin_types"
+                }, 
+                {
+                    "include": "#generic_names"
+                }
+            ]
+        }, 
+        "strings": {
+            "patterns": [
+                {
+                    "include": "#string_quoted_double"
+                }
+            ]
+        }
+    }, 
+
+
+  "scopeName": "source.vs",
+  "fileTypes": ["vs"],
+  "uuid": "a4fc24ab-ba7d-451d-bc63-66fd96bc57d6",
+
+  "patterns": [
+        {
+            "captures": {
+                "1": {
+                    "name": "punctuation.definition.comment.vs"
+                }
+            }, 
+            "name": "comment.line.number-sign.vs", 
+            "match": "(#).*$\\n?"
+        },
+        {
+            "name": "constant.numeric.float.vs", 
+            "match": "\\b(?i:((-)?(\\.\\d+|\\d+(\\.\\d+)?)))"
+        }, 
+        
+        {
+            "name": "constant.language.vs", 
+            "match": "\\b(True|False)\\b"
+        },
+        {
+            "include": "#string_quoted_double"
+        },  
+        {
+            "captures": {
+                "1": {
+                    "name": "keyword.control.loop.vs"
+                }, 
+                "2": {
+                    "name": "keyword.control.loop.while.vs"
+                }
+            }, 
+            "match": "\\b(?:(loop)|(while))\\b"
+        }, 
+        {
+            "captures": {
+                "1": {
+                    "name": "keyword.control.loop.vs"
+                }, 
+                "2": {
+                    "name": "keyword.control.loop.from.vs"
+                },
+                "3": {
+                    "name": "keyword.control.loop.to.vs"
+                }
+            }, 
+            "match": "\\b(?:(loop)|(from)|(to))\\b"
+        }, 
+        {
+            "comment": "keywords that delimit flow blocks or alter flow from within a block", 
+            "name": "keyword.control.flow.vs", 
+            "match": "\\b(if|then|else|next|exit loop|return|set|print|call|append|with|new|push|onto|shift|insert|into|remove|pop|unshift|length of|element|read|type of|over|named)\\b"
+        }, 
+
+        {
+            "name": "storage.type.source.vs", 
+            "match": "\\b(plus|minus|multiplied|times|divided|modulo|mod|negate|negative|not|equals|greater than|less than|and|or|exclusive|equal to)\\b"
+        },
+        { "match": "\\$\\d+",
+          "name": "keyword.source.vs",
+          "comment": "Tab stops like $1, $2..."
+        }
+  ]
+}
