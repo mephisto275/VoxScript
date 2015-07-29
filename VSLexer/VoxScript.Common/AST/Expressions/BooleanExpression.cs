@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VoxScript.Common.AST.Expressions
 {
-    public class BooleanExpression : Expression
+    public abstract class BooleanExpression : Expression
     {
     }
 }

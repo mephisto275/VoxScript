@@ -43,7 +43,15 @@
     <Compile Include="AST\Block.cs" />
     <Compile Include="AST\Expressions\ArgumentDeclareExpression.cs" />
     <Compile Include="AST\Expressions\ArgumentCallExpression.cs" />
+    <Compile Include="AST\Expressions\BooleanBinaryExpression.cs" />
+    <Compile Include="AST\Expressions\BooleanEqualsExpression.cs" />
     <Compile Include="AST\Expressions\BooleanExpression.cs" />
+    <Compile Include="AST\Expressions\BooleanGreaterEqualExpression.cs" />
+    <Compile Include="AST\Expressions\BooleanGreaterExpression.cs" />
+    <Compile Include="AST\Expressions\BooleanLessEqualExpression.cs" />
+    <Compile Include="AST\Expressions\BooleanLessExpression.cs" />
+    <Compile Include="AST\Expressions\BooleanNotEqualsExpression.cs" />
+    <Compile Include="AST\Expressions\BooleanNotExpression.cs" />
     <Compile Include="AST\Expressions\Expression.cs" />
     <Compile Include="AST\Expressions\NumericExpression.cs" />
     <Compile Include="AST\Expressions\StringExpression.cs" />
