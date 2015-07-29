@@ -49,6 +49,9 @@
     <Compile Include="AST\Statements\AssignmentStatement.cs" />
     <Compile Include="AST\Statements\CallStatement.cs" />
     <Compile Include="AST\Statements\ConditionalStatement.cs" />
+    <Compile Include="AST\Statements\InLoopExitStatement.cs" />
+    <Compile Include="AST\Statements\InLoopNextStatement.cs" />
+    <Compile Include="AST\Statements\InLoopStatement.cs" />
     <Compile Include="AST\Statements\ListInsertStatement.cs" />
     <Compile Include="AST\Statements\ListPushStatement.cs" />
     <Compile Include="AST\Statements\ListRemoveStatement.cs" />
