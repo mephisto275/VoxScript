@@ -53,7 +53,14 @@
     <Compile Include="AST\Expressions\BooleanNotEqualsExpression.cs" />
     <Compile Include="AST\Expressions\BooleanNotExpression.cs" />
     <Compile Include="AST\Expressions\Expression.cs" />
+    <Compile Include="AST\Expressions\NumericAddExpression.cs" />
+    <Compile Include="AST\Expressions\NumericBinaryExpression.cs" />
+    <Compile Include="AST\Expressions\NumericDivideExpression.cs" />
+    <Compile Include="AST\Expressions\NumericMultiplyExpression.cs" />
     <Compile Include="AST\Expressions\NumericExpression.cs" />
+    <Compile Include="AST\Expressions\NumericMinusExpression.cs" />
+    <Compile Include="AST\Expressions\NumericModExpression.cs" />
+    <Compile Include="AST\Expressions\NumericNegateExpression.cs" />
     <Compile Include="AST\Expressions\StringExpression.cs" />
     <Compile Include="AST\Literals\BooleanLiteral.cs" />
     <Compile Include="AST\Literals\NumericLiteral.cs" />

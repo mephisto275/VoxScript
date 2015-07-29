@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VoxScript.Common.AST.Expressions
 {
-    public class StringExpression : Expression
+    public abstract class StringExpression : Expression
     {
     }
 }
