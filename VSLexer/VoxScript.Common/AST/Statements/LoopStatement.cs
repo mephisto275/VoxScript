@@ -8,5 +8,6 @@ namespace VoxScript.Common.AST.Statements
 {
     public abstract class LoopStatement : Statement
     {
+        public Block LoopBlock { get; } = new Block();
     }
 }
