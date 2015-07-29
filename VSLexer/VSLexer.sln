@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSLexer", "VSLexer\VSLexer.csproj", "{36062BE7-50C6-48E9-94DC-07F8004F6963}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSLexerTestApplication", "VSLexerTestApplication\VSLexerTestApplication.csproj", "{5738E8B3-C53E-401F-986A-8ABC155815D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxScript.Common", "VoxScript.Common\VoxScript.Common.csproj", "{35D40F48-203D-4A69-91B3-CB4F039D333C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36062BE7-50C6-48E9-94DC-07F8004F6963}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36062BE7-50C6-48E9-94DC-07F8004F6963}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36062BE7-50C6-48E9-94DC-07F8004F6963}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36062BE7-50C6-48E9-94DC-07F8004F6963}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5738E8B3-C53E-401F-986A-8ABC155815D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5738E8B3-C53E-401F-986A-8ABC155815D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5738E8B3-C53E-401F-986A-8ABC155815D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5738E8B3-C53E-401F-986A-8ABC155815D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35D40F48-203D-4A69-91B3-CB4F039D333C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35D40F48-203D-4A69-91B3-CB4F039D333C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35D40F48-203D-4A69-91B3-CB4F039D333C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35D40F48-203D-4A69-91B3-CB4F039D333C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
