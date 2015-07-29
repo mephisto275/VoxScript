@@ -11,9 +11,9 @@ namespace VoxScript.Common.AST.Statements
     public class CallStatement : Statement
     {
         public string Identifier { get; }
-        public ArgumentExpression ArgumentList { get; }
+        public ArgumentCallExpression ArgumentList { get; }
 
-        public CallStatement(string identifier, ArgumentExpression arguments)
+        public CallStatement(string identifier, ArgumentCallExpression arguments)
         {
             this.Identifier = identifier;
             this.ArgumentList = arguments;

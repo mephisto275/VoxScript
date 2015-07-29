@@ -41,10 +41,15 @@
   <ItemGroup>
     <Compile Include="AST\AST.cs" />
     <Compile Include="AST\Block.cs" />
-    <Compile Include="AST\Expressions\ArgumentExpression.cs" />
+    <Compile Include="AST\Expressions\ArgumentDeclareExpression.cs" />
+    <Compile Include="AST\Expressions\ArgumentCallExpression.cs" />
     <Compile Include="AST\Expressions\BooleanExpression.cs" />
     <Compile Include="AST\Expressions\Expression.cs" />
     <Compile Include="AST\Expressions\NumericExpression.cs" />
+    <Compile Include="AST\Expressions\StringExpression.cs" />
+    <Compile Include="AST\Literals\BooleanLiteral.cs" />
+    <Compile Include="AST\Literals\NumericLiteral.cs" />
+    <Compile Include="AST\Literals\StringLiteral.cs" />
     <Compile Include="AST\Scope.cs" />
     <Compile Include="AST\Statements\AssignmentStatement.cs" />
     <Compile Include="AST\Statements\BuiltInPrintStatement.cs" />
