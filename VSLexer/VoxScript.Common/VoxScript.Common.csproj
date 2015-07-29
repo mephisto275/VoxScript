@@ -54,6 +54,11 @@
     <Compile Include="AST\Expressions\BooleanNotExpression.cs" />
     <Compile Include="AST\Expressions\Expression.cs" />
     <Compile Include="AST\Expressions\FunctionExpression.cs" />
+    <Compile Include="AST\Expressions\ListElementExpression.cs" />
+    <Compile Include="AST\Expressions\ListExpression.cs" />
+    <Compile Include="AST\Expressions\ListLengthExpression.cs" />
+    <Compile Include="AST\Expressions\ListPopExpression.cs" />
+    <Compile Include="AST\Expressions\ListUnShiftExpression.cs" />
     <Compile Include="AST\Expressions\NumericAddExpression.cs" />
     <Compile Include="AST\Expressions\NumericBinaryExpression.cs" />
     <Compile Include="AST\Expressions\NumericDivideExpression.cs" />
@@ -65,6 +70,7 @@
     <Compile Include="AST\Expressions\StringAppendExpression.cs" />
     <Compile Include="AST\Expressions\StringExpression.cs" />
     <Compile Include="AST\Literals\BooleanLiteral.cs" />
+    <Compile Include="AST\Literals\ListLiteral.cs" />
     <Compile Include="AST\Literals\NumericLiteral.cs" />
     <Compile Include="AST\Literals\StringLiteral.cs" />
     <Compile Include="AST\Scope.cs" />
