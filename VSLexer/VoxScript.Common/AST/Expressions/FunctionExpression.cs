@@ -7,13 +7,15 @@ using VoxScript.Common.Translators;
 
 namespace VoxScript.Common.AST.Expressions
 {
-    public class ArgumentDeclareExpression : Expression
+    public class FunctionExpression : Expression
     {
-        public List<Expression> Values { get; } = new List<Expression>();
+        public ArgumentDeclareExpression Arguments { get; }
+        public Block BodyBlock { get; }
 
-        public ArgumentDeclareExpression(IEnumerable<Expression> values)
+        public FunctionExpression(ArgumentDeclareExpression arguments, Block block)
         {
-            this.Values.AddRange(values);
+            this.Arguments = arguments;
+            this.BodyBlock = block;
         }
 
         public override string Translate(ITranslator translator)

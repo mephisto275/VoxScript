@@ -7,13 +7,15 @@ using VoxScript.Common.Translators;
 
 namespace VoxScript.Common.AST.Expressions
 {
-    public class ArgumentDeclareExpression : Expression
+    class StringAppendExpression : StringExpression
     {
-        public List<Expression> Values { get; } = new List<Expression>();
+        public Expression Left { get; }
+        public Expression Right { get; }
 
-        public ArgumentDeclareExpression(IEnumerable<Expression> values)
+        public StringAppendExpression(Expression left, Expression right)
         {
-            this.Values.AddRange(values);
+            this.Left = left;
+            this.Right = right;
         }
 
         public override string Translate(ITranslator translator)
