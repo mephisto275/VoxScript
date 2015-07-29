@@ -70,6 +70,7 @@ namespace VoxScript.Common
         lengthTok,
         elementTok,
         atTok,
+        updateTok,
         //Type
         typeOfTok,
         //IO
@@ -173,6 +174,7 @@ namespace VoxScript.Common
             {"unshift",Token.unshiftTok},
             {"length",Token.lengthTok},
             {"^element +from",Token.elementTok},
+            {"update", Token.updateTok},
             {"at",Token.atTok},
             {"print",Token.printTok},
             {"^read +line",Token.readLineTok},
