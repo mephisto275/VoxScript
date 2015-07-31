@@ -7,7 +7,7 @@
     <ProjectGuid>{36062BE7-50C6-48E9-94DC-07F8004F6963}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VoxScript.Lexer</RootNamespace>
+    <RootNamespace>VoxScript.Common</RootNamespace>
     <AssemblyName>VoxScriptLexer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -39,8 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExitBlockException.cs" />
     <Compile Include="Lexer.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TokenData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VoxScript.Common\VoxScript.Common.csproj">
+      <Project>{35d40f48-203d-4a69-91b3-cb4f039d333c}</Project>
+      <Name>VoxScript.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
